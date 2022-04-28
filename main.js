@@ -2,27 +2,30 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
+const errorModal = document.querySelector("#modal")
 
 document.addEventListener("DOMContentLoaded", () => {
-  const errorModal = document.querySelector("#modal")
   errorModal.hidden = true 
 });
 
-let heart = document.querySelector("#\\32 01811190 > footer > ul > li > span")
-  heart.addEventListener("click", (e) =>  {
-    console.log(e)
-    clickLike (e)
-})
+let articleHearts = document.querySelectorAll("footer > ul > li > span")
 
-
-
+for (const glyph of articleHearts) {
+  glyph.addEventListener("click", clickLike);
+}
 
 function clickLike (e) {
-
-  result = mimicServerCall().then((response) => response)
-  console.log(result)
-  debugger
-  
+  const heart = e.target;
+  result = mimicServerCall()
+  result.then(response => { 
+    if (heart.innerText == EMPTY_HEART) {
+      debugger
+      heart.innerText = FULL_HEART
+    } else if ((heart.innerText == FULL_HEART) ) {
+      heart.innerText = EMPTY_HEART
+    }
+    heart.style.color = colorStates[heart.style.color];
+  })
 }
 
 
