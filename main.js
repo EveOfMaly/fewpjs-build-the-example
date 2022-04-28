@@ -19,16 +19,28 @@ function clickLike (e) {
   result = mimicServerCall()
   result.then(response => { 
     if (heart.innerText == EMPTY_HEART) {
-      debugger
       heart.innerText = FULL_HEART
+      heart.className = "activated-heart"
     } else if ((heart.innerText == FULL_HEART) ) {
       heart.innerText = EMPTY_HEART
     }
-    heart.style.color = colorStates[heart.style.color];
+
+  })
+  .catch((response) => {
+    console.log(response)
+    errorModal.className = "";
+    errorModal.innerText = response;
+    errorModal.hidden = false
+    setTimeout(() =>  modal.className = "hidden", 3000);
   })
 }
 
 
+
+function displayError (response){
+
+
+}
 
 
 
